@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!-- Default Servlet Handler 등록: 정적인 요소들(html, js, css, gif)을 Default Servlet에 요청 -->
+<mvc:default-servlet-handler/>
+
+<!-- jquery, npm node_modules들을 WEB-INF밑으로 이동한 경우 Public 처리 -->
+<!-- <mvc:resources location="/WEB-INF/node_modules/**" mapping="/node_modules"/>
+<mvc:resources location="/WEB-INF/jquery-ui-1.11.4/**" mapping="/jquery-ui-1.11.4"/> -->
+
+<!-- MVC 구성, 설정 -->
+
+<!-- HandlerMapping,HandlerAdapter 등록- -->
+<!-- 1. RequestMappingHandlerMapping -->
+<!-- 2. RequestMappingHandlerAdapter -->
+<mvc:annotation-driven/>
+
+<mvc:view-resolvers>
+	<mvc:jsp prefix="/WEB-INF/views/"/> 
+</mvc:view-resolvers>
+
+
+<!-- ViewResolver:Bean 등록:논리적인View를 물리적인View로 변환 -->
+<!-- <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+<!-- 	<property name="prefix" value="/WEB-INF/views/"/> -->
+<!-- 	<property name="suffix" value=".jsp"/> -->
+<!-- </bean> -->
+
+
+</beans>

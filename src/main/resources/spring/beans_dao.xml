@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- DBCP Data Source Dao Bean 수동 등록 Connection Pool 설정 -->
+<!-- Custom 초기화 Method. init-method, Factory Destroy시점에 BasicDataSource의 destroy-method인 close를 호출 -->
+<!-- Data Source -->
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	<property name="url" value="jdbc:mysql://localhost:3306/world"/>	
+	<property name="username" value="world"/>
+	<property name="password" value="1234"/>
+	<property name="maxActive" value="10"/>
+</bean>
+
+<!-- MyBatis를 위한 BeanFactory 설정 -->
+<!-- SqlSessionFactory -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"/>
+	<property name="mapperLocations">
+		<list>
+			<value>classpath:com/webapp/mapper/CityMapper.xml</value>
+			<value>classpath:com/webapp/mapper/CountryMapper.xml</value>
+		</list>
+	</property>
+</bean>
+			<!-- Mapper XML -->
+	
+<!-- SqlSessionTemplate -->	
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg ref="sqlSessionFactory"/>
+</bean>
+
+<!-- Mapper 설정:GetMapper역할 -->
+<!-- CityMapper -->
+<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<property name="sqlSessionTemplate" ref="sqlSession"/>
+	<property name="mapperInterface" value="com.webapp.mapper.CityMapper"/>
+</bean>
+
+<!-- CountryMapper -->
+<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<property name="sqlSessionTemplate" ref="sqlSession"/>
+	<property name="mapperInterface" value="com.webapp.mapper.CountryMapper"/>
+</bean>
+
+
+</beans>
