@@ -48,6 +48,22 @@ public class CityController {
 	@Autowired
 	CityCommandValidator validator; //Field Injection - Setter없이 
 	
+	
+	
+	
+	/************* Test **************/
+	
+	String getCitys() {
+		
+		return "";
+	}
+	
+	/************* Test **************/	
+	
+	
+	
+	
+	
 	//RequestHandlerMapping설정했으므로 Annotation으로 처리 - AJax에서 호출
 	//정규표현식(Email,Password Validation검증용). 
 	//QueryString이 아닌 URL상에서 기술한 값으로 처리-WEB값 전달은 Parameter, URL로
